@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "723715612492",
+    "firebase_url": "https://gencheminkaist.firebaseio.com",
+    "project_id": "gencheminkaist",
+    "storage_bucket": "gencheminkaist.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:723715612492:android:fa5d88a3be0671c5",
+        "android_client_info": {
+          "package_name": "me.blog.ghwhsbsb123.gencheminkaist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "723715612492-de8id8mgmjoin2goevf8cgef98mlukeo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.blog.ghwhsbsb123.gencheminkaist",
+            "certificate_hash": "8902b7fb3751c79036e5348ea5a1bea8e3e54336"
+          }
+        },
+        {
+          "client_id": "723715612492-q270pdqmp6hu5snhdam0udt7rgjegigk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8IakphtYB8MdV0AIIz7hWgdNWMnnboVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "723715612492-q270pdqmp6hu5snhdam0udt7rgjegigk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

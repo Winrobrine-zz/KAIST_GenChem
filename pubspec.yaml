@@ -1,0 +1,35 @@
+name: gencheminkaist
+description: KAIST General Chemistry Application.
+version: 1.1.0+3
+
+environment:
+    sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+    flutter:
+        sdk: flutter
+    loading: ^1.0.1
+    url_launcher: ^5.1.0
+    package_info: ^0.4.0+6
+    firebase_remote_config: ^0.2.0+5
+    flutter_webview_plugin: ^0.3.5
+    html: ^0.14.0+2
+    http: ^0.12.0+2
+
+dev_dependencies:
+    flutter_test:
+        sdk: flutter
+    flutter_launcher_icons: ^0.7.2+1
+
+flutter_icons:
+    android: true
+    ios: true
+    image_path: "assets/icons/ic_launcher.png"
+    adaptive_icon_background: "#004191"
+    adaptive_icon_foreground: "assets/icons/ic_launcher_foreground.png"
+
+flutter:
+    uses-material-design: true
+    assets:
+        - assets/icons/ic_launcher.png
+        - assets/icons/ic_launcher_foreground.png
