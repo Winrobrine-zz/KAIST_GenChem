@@ -15,7 +15,7 @@ class GenChem extends InheritedWidget {
   }) : super(key: key, child: home);
 
   static GenChem of(BuildContext context) {
-    return context.inheritFromWidgetOfExactType(GenChem) as GenChem;
+    return context.dependOnInheritedWidgetOfExactType<GenChem>();
   }
 
   @override
