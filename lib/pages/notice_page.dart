@@ -1,7 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gencheminkaist/widgets/genchem.dart';
 import 'package:gencheminkaist/widgets/genchem_tile.dart';
-import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' show parse;
 import 'package:html/dom.dart' as dom;
 
@@ -96,8 +96,8 @@ class _NoticePageState extends State<NoticePage> {
 
   Future<Map<String, List<String>>> _getNotices() async {
     try {
-      final response = await http.get(widget.noticeUrl);
-      final document = parse(response.body);
+      final response = await Dio().get(widget.noticeUrl);
+      final document = parse(response.data);
       final result = Map<String, List<String>>();
 
       document.querySelectorAll("tr").forEach((e) {
