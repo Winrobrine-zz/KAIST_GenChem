@@ -7,12 +7,10 @@ import 'package:gencheminkaist/models/course.dart';
 import 'package:gencheminkaist/models/genchem_theme.dart';
 import 'package:gencheminkaist/pages/loading_page.dart';
 import 'package:gencheminkaist/widgets/genchem.dart';
+import 'package:gencheminkaist/constants/color.dart' as color;
 import 'package:flutter/foundation.dart' as Foundation;
 
 void main() => runApp(MyApp());
-
-const PRIMARY_COLOR = Color.fromARGB(255, 0, 65, 135);
-const SECONDARY_COLOR = Color.fromARGB(255, 20, 135, 200);
 
 class MyApp extends StatelessWidget {
   @override
@@ -33,7 +31,7 @@ class MyApp extends StatelessWidget {
           }
           if (snapshot.connectionState == ConnectionState.done)
             return _buildGenChem(snapshot.data);
-          return LoadingPage(backgroundColor: PRIMARY_COLOR);
+          return LoadingPage(backgroundColor: color.PRIMARY_COLOR);
         },
       ),
     );
@@ -45,8 +43,8 @@ class MyApp extends StatelessWidget {
           .map((e) => Course.fromMap(e))
           .toList(),
       theme: GenChemTheme(
-        primaryColor: PRIMARY_COLOR,
-        secondaryColor: SECONDARY_COLOR,
+        primaryColor: color.PRIMARY_COLOR,
+        secondaryColor: color.SECONDARY_COLOR,
       ),
       home: GenChemHome(remoteConfig: remoteConfig),
     );
@@ -55,7 +53,7 @@ class MyApp extends StatelessWidget {
   ThemeData _buildTheme() {
     final base = ThemeData.light();
     return base.copyWith(
-      appBarTheme: base.appBarTheme.copyWith(color: PRIMARY_COLOR),
+      appBarTheme: base.appBarTheme.copyWith(color: color.PRIMARY_COLOR),
       iconTheme: base.iconTheme.copyWith(color: Colors.grey),
       primaryTextTheme: base.primaryTextTheme.copyWith(
         title: base.primaryTextTheme.title.copyWith(color: Colors.white),
