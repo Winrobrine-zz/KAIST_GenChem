@@ -17,6 +17,8 @@ class GenChemHome extends StatefulWidget {
 }
 
 class _GenChemHomeState extends State<GenChemHome> {
+  Size _size;
+  double _selectedTabMargin = 0;
   int _currentIndex = 0;
   String _genchemUrl;
   List<Widget> _pages;
@@ -42,9 +44,13 @@ class _GenChemHomeState extends State<GenChemHome> {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = GenChem.of(context).theme.primaryColor;
+
+    if (_size == null) _size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: _buildAppBar(),
-      bottomNavigationBar: _buildBottomNavigationBar(context),
+      bottomNavigationBar: _buildBottomNavigationBar(primaryColor),
       body: GroupBox(
         title: _pageTitles[_currentIndex],
         children: <Widget>[
@@ -54,6 +60,7 @@ class _GenChemHomeState extends State<GenChemHome> {
               children: _pages,
             ),
           ),
+          _buildSelectedBar(primaryColor),
         ],
       ),
     );
@@ -71,13 +78,31 @@ class _GenChemHomeState extends State<GenChemHome> {
     );
   }
 
-  BottomNavigationBar _buildBottomNavigationBar(BuildContext context) {
+  Widget _buildSelectedBar(Color color) {
+    return AnimatedContainer(
+      alignment: Alignment.centerLeft,
+      curve: Curves.easeInOut,
+      color: Colors.transparent,
+      duration: const Duration(milliseconds: 300),
+      height: 3,
+      transform: Matrix4.translationValues(_selectedTabMargin, 0, 0),
+      width: _size.width,
+      child: Container(
+        height: 1,
+        width: _size.width / 3,
+        color: color,
+      ),
+    );
+  }
+
+  BottomNavigationBar _buildBottomNavigationBar(Color selectedColor) {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
-      fixedColor: GenChem.of(context).theme.primaryColor,
+      fixedColor: selectedColor,
       onTap: (index) {
         setState(() {
           _currentIndex = index;
+          _selectedTabMargin = _size.width / 3 * index;
         });
       },
       items: <BottomNavigationBarItem>[
