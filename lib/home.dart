@@ -19,8 +19,8 @@ class GenChemHome extends StatefulWidget {
 class _GenChemHomeState extends State<GenChemHome> {
   int _currentIndex = 0;
   String _genchemUrl;
-  List _pages;
-  final _pageTitles = const [
+  List<Widget> _pages;
+  final _pageTitles = const <Text>[
     Text("Course List"),
     Text("Notice"),
     Text("More"),
@@ -45,15 +45,16 @@ class _GenChemHomeState extends State<GenChemHome> {
     return Scaffold(
       appBar: _buildAppBar(),
       bottomNavigationBar: _buildBottomNavigationBar(context),
-      body: SafeArea(
-        child: GroupBox(
-          title: _pageTitles[_currentIndex],
-          children: <Widget>[
-            Expanded(
-              child: _pages[_currentIndex],
+      body: GroupBox(
+        title: _pageTitles[_currentIndex],
+        children: <Widget>[
+          Expanded(
+            child: IndexedStack(
+              index: _currentIndex,
+              children: _pages,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
