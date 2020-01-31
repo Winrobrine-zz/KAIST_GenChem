@@ -1,4 +1,3 @@
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:gencheminkaist/pages/course_list_page.dart';
 import 'package:gencheminkaist/pages/more_page.dart';
@@ -33,10 +32,12 @@ class _GenChemHomeState extends State<GenChemHome> {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = GenChem.of(context).theme.primaryColor;
+    final genchem = GenChem.of(context);
+
+    final primaryColor = genchem.theme.primaryColor;
 
     if (_size == null) _size = MediaQuery.of(context).size;
-    if (_genchemUrl == null) _genchemUrl = GenChem.of(context).genchemUrl;
+    if (_genchemUrl == null) _genchemUrl = genchem.genchemUrl;
 
     return Scaffold(
       appBar: _buildAppBar(),

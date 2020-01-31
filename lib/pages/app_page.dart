@@ -41,25 +41,23 @@ class AppPage extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: FutureBuilder<PackageInfo>(
-            future: _getPackageInfo(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text("Error: ${snapshot.error}"),
-                );
-              }
-              if (snapshot.connectionState == ConnectionState.done)
-                return _buildAppInfo(context, snapshot.data);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: FutureBuilder<PackageInfo>(
+          future: _getPackageInfo(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
               return Center(
-                child: const CircularProgressIndicator(),
+                child: Text("Error: ${snapshot.error}"),
               );
-            },
-          ),
+            }
+            if (snapshot.connectionState == ConnectionState.done)
+              return _buildAppInfo(context, snapshot.data);
+            return Center(
+              child: const CircularProgressIndicator(),
+            );
+          },
         ),
       ),
     );
