@@ -8,9 +8,7 @@ import 'package:gencheminkaist/widgets/group_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class GenChemHome extends StatefulWidget {
-  final RemoteConfig remoteConfig;
-
-  GenChemHome({Key key, @required this.remoteConfig}) : super(key: key);
+  GenChemHome({Key key}) : super(key: key);
 
   @override
   _GenChemHomeState createState() => _GenChemHomeState();
@@ -21,7 +19,12 @@ class _GenChemHomeState extends State<GenChemHome> {
   double _selectedTabMargin = 0;
   int _currentIndex = 0;
   String _genchemUrl;
-  List<Widget> _pages;
+
+  final _pages = <Widget>[
+    CourseListPage(),
+    NoticePage(),
+    MorePage(),
+  ];
   final _pageTitles = const <Text>[
     Text("Course List"),
     Text("Notice"),
@@ -29,24 +32,11 @@ class _GenChemHomeState extends State<GenChemHome> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-
-    _genchemUrl = widget.remoteConfig.getString("genchem_url");
-    _pages = [
-      CourseListPage(),
-      NoticePage(
-        noticeUrl: widget.remoteConfig.getString("notice_url"),
-      ),
-      MorePage(),
-    ];
-  }
-
-  @override
   Widget build(BuildContext context) {
     final primaryColor = GenChem.of(context).theme.primaryColor;
 
     if (_size == null) _size = MediaQuery.of(context).size;
+    if (_genchemUrl == null) _genchemUrl = GenChem.of(context).genchemUrl;
 
     return Scaffold(
       appBar: _buildAppBar(),

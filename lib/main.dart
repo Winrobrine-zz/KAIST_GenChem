@@ -41,11 +41,13 @@ class GenChemApp extends StatelessWidget {
       courses: (jsonDecode(remoteConfig.getString("courses")) as List)
           .map((e) => Course.fromMap(e))
           .toList(),
+      genchemUrl: remoteConfig.getString("genchem_url"),
+      noticeUrl: remoteConfig.getString("notice_url"),
       theme: GenChemTheme(
         primaryColor: PRIMARY_COLOR,
         secondaryColor: SECONDARY_COLOR,
       ),
-      home: GenChemHome(remoteConfig: remoteConfig),
+      home: GenChemHome(),
     );
   }
 

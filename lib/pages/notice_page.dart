@@ -9,17 +9,19 @@ const String GENCHEM = "General Chemistry";
 const String GENCHEMLAB = "General Chemistry Laboratory";
 
 class NoticePage extends StatefulWidget {
-  final String noticeUrl;
-
-  NoticePage({Key key, @required this.noticeUrl}) : super(key: key);
+  NoticePage({Key key}) : super(key: key);
 
   @override
   _NoticePageState createState() => _NoticePageState();
 }
 
 class _NoticePageState extends State<NoticePage> {
+  String _noticeUrl;
+
   @override
   Widget build(BuildContext context) {
+    if (_noticeUrl == null) _noticeUrl = GenChem.of(context).noticeUrl;
+
     return FutureBuilder<Map<String, List<String>>>(
       future: _getNotices(),
       builder: (context, snapshot) {
@@ -96,7 +98,7 @@ class _NoticePageState extends State<NoticePage> {
 
   Future<Map<String, List<String>>> _getNotices() async {
     try {
-      final response = await Dio().get(widget.noticeUrl);
+      final response = await Dio().get(_noticeUrl);
       final document = parse(response.data);
       final result = Map<String, List<String>>();
 

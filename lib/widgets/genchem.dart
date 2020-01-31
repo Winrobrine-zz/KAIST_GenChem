@@ -4,12 +4,16 @@ import 'package:gencheminkaist/models/course.dart';
 import 'package:gencheminkaist/models/genchem_theme.dart';
 
 class GenChem extends InheritedWidget {
+  final String genchemUrl;
+  final String noticeUrl;
   final GenChemTheme theme;
   final List<Course> courses;
 
   GenChem({
     Key key,
     @required this.theme,
+    @required this.genchemUrl,
+    @required this.noticeUrl,
     @required this.courses,
     @required Widget home,
   }) : super(key: key, child: home);
