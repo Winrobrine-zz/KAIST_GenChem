@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WebPage extends StatelessWidget {
@@ -11,8 +11,7 @@ class WebPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WebviewScaffold(
-      url: url,
+    return Scaffold(
       appBar: AppBar(
         title: title,
         actions: <Widget>[
@@ -22,14 +21,19 @@ class WebPage extends StatelessWidget {
           ),
         ],
       ),
-      appCacheEnabled: false,
-      clearCache: true,
-      clearCookies: true,
-      withLocalStorage: false,
-      withLocalUrl: false,
-      withZoom: true,
-      allowFileURLs: true,
-      supportMultipleWindows: true,
+      body: InAppWebView(
+        initialUrl: url,
+        initialOptions: InAppWebViewWidgetOptions(
+          crossPlatform: InAppWebViewOptions(
+            cacheEnabled: false,
+            clearCache: true,
+            useOnDownloadStart: true,
+          ),
+        ),
+        onDownloadStart: (controller, url) {
+          launch(url);
+        },
+      ),
     );
   }
 }
