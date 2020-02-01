@@ -14,8 +14,6 @@ class GenChemHome extends StatefulWidget {
 }
 
 class _GenChemHomeState extends State<GenChemHome> {
-  Size _size;
-  double _selectedTabMargin = 0;
   int _currentIndex = 0;
   String _genchemUrl;
 
@@ -24,6 +22,7 @@ class _GenChemHomeState extends State<GenChemHome> {
     NoticePage(),
     MorePage(),
   ];
+
   final _pageTitles = const <Text>[
     Text("Course List"),
     Text("Notice"),
@@ -33,10 +32,8 @@ class _GenChemHomeState extends State<GenChemHome> {
   @override
   Widget build(BuildContext context) {
     final genchem = GenChem.of(context);
-
     final primaryColor = genchem.theme.primaryColor;
 
-    if (_size == null) _size = MediaQuery.of(context).size;
     if (_genchemUrl == null) _genchemUrl = genchem.genchemUrl;
 
     return Scaffold(
@@ -51,7 +48,6 @@ class _GenChemHomeState extends State<GenChemHome> {
               children: _pages,
             ),
           ),
-          _buildSelectedBar(primaryColor),
         ],
       ),
     );
@@ -69,23 +65,6 @@ class _GenChemHomeState extends State<GenChemHome> {
     );
   }
 
-  Widget _buildSelectedBar(Color color) {
-    return AnimatedContainer(
-      alignment: Alignment.centerLeft,
-      curve: Curves.easeInOut,
-      color: Colors.transparent,
-      duration: const Duration(milliseconds: 300),
-      height: 3,
-      transform: Matrix4.translationValues(_selectedTabMargin, 0, 0),
-      width: _size.width,
-      child: Container(
-        height: 1,
-        width: _size.width / 3,
-        color: color,
-      ),
-    );
-  }
-
   BottomNavigationBar _buildBottomNavigationBar(Color selectedColor) {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
@@ -93,7 +72,6 @@ class _GenChemHomeState extends State<GenChemHome> {
       onTap: (index) {
         setState(() {
           _currentIndex = index;
-          _selectedTabMargin = _size.width / 3 * index;
         });
       },
       items: <BottomNavigationBarItem>[
