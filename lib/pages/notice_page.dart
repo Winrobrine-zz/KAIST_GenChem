@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gencheminkaist/widgets/genchem.dart';
 import 'package:gencheminkaist/widgets/genchem_tile.dart';
+import 'package:gencheminkaist/widgets/group_box.dart';
 import 'package:html/parser.dart' show parse;
 import 'package:html/dom.dart' as dom;
 
@@ -20,7 +21,9 @@ class _NoticePageState extends State<NoticePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_noticeUrl == null) _noticeUrl = GenChem.of(context).noticeUrl;
+    final genChem = GenChem.of(context);
+
+    if (_noticeUrl == null) _noticeUrl = genChem.noticeUrl;
 
     return FutureBuilder<Map<String, List<String>>>(
       future: _getNotices(),
@@ -31,61 +34,40 @@ class _NoticePageState extends State<NoticePage> {
           );
         }
         if (snapshot.connectionState == ConnectionState.done) {
-          final textTheme = Theme.of(context).textTheme;
-          final genChem = GenChem.of(context);
-
           return RefreshIndicator(
             onRefresh: () async {
               setState(() {});
             },
             child: ListView(
-              children: <Iterable<Widget>>[
-                [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    height: 64.0,
-                    child: Text(
-                      GENCHEM,
-                      style: textTheme.subhead.copyWith(
-                        color: genChem.theme.secondaryColor,
-                      ),
-                    ),
-                  ),
-                ],
-                snapshot.data[GENCHEM].map((title) => GenChemTile.toWebView(
-                      context: context,
-                      title: Text(title),
-                      webTitle: const Text("Notice"),
-                      url: genChem.courses
-                          .firstWhere(
-                              (course) => title.contains(course.courseNo))
-                          .notice,
-                    )),
-                [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    height: 64.0,
-                    child: Text(
-                      GENCHEMLAB,
-                      style: textTheme.subhead.copyWith(
-                        color: genChem.theme.secondaryColor,
-                      ),
-                    ),
-                  ),
-                ],
-                snapshot.data[GENCHEMLAB].map(
-                  (title) => GenChemTile.toWebView(
-                      context: context,
-                      title: Text(title),
-                      webTitle: const Text("Notice"),
-                      url: genChem.courses
-                          .firstWhere(
-                              (course) => title.contains(course.courseNo))
-                          .notice),
+              children: <Widget>[
+                GroupBox(
+                  title: const Text(GENCHEM),
+                  children: snapshot.data[GENCHEM]
+                      .map((title) => GenChemTile.toWebView(
+                            context: context,
+                            title: Text(title),
+                            webTitle: const Text("Notice"),
+                            url: genChem.courses
+                                .firstWhere(
+                                    (course) => title.contains(course.courseNo))
+                                .notice,
+                          ))
+                      .toList(),
                 ),
-              ].expand((e) => e).toList(),
+                GroupBox(
+                  title: const Text(GENCHEMLAB),
+                  children: snapshot.data[GENCHEMLAB]
+                      .map((title) => GenChemTile.toWebView(
+                          context: context,
+                          title: Text(title),
+                          webTitle: const Text("Notice"),
+                          url: genChem.courses
+                              .firstWhere(
+                                  (course) => title.contains(course.courseNo))
+                              .notice))
+                      .toList(),
+                )
+              ],
             ),
           );
         }

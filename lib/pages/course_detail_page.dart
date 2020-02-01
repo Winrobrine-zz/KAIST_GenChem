@@ -11,7 +11,9 @@ class CourseDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(context),
+      appBar: AppBar(
+        title: Text(course.courseTitle),
+      ),
       body: _buildBody(context),
     );
   }
@@ -82,23 +84,6 @@ class CourseDetailPage extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-
-  AppBar _buildAppBar(BuildContext context) {
-    return AppBar(
-      bottom: PreferredSize(
-        preferredSize: const Size(0.0, 60.0),
-        child: Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              "${course.courseTitle} (${course.courseNo})",
-              style: Theme.of(context).primaryTextTheme.title,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

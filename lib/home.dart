@@ -3,7 +3,6 @@ import 'package:gencheminkaist/pages/course_list_page.dart';
 import 'package:gencheminkaist/pages/more_page.dart';
 import 'package:gencheminkaist/pages/notice_page.dart';
 import 'package:gencheminkaist/widgets/genchem.dart';
-import 'package:gencheminkaist/widgets/group_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class GenChemHome extends StatefulWidget {
@@ -39,23 +38,16 @@ class _GenChemHomeState extends State<GenChemHome> {
     return Scaffold(
       appBar: _buildAppBar(),
       bottomNavigationBar: _buildBottomNavigationBar(primaryColor),
-      body: GroupBox(
-        title: _pageTitles[_currentIndex],
-        children: <Widget>[
-          Expanded(
-            child: IndexedStack(
-              index: _currentIndex,
-              children: _pages,
-            ),
-          ),
-        ],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _pages,
       ),
     );
   }
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: const Text("KAIST GenChem"),
+      title: _pageTitles[_currentIndex],
       actions: <Widget>[
         IconButton(
           icon: const Icon(Icons.open_in_browser),
