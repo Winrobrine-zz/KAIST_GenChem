@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gencheminkaist/widgets/genchem.dart';
+import 'package:gencheminkaist/constants/color.dart';
 
 class CourseListItem extends StatelessWidget {
   final Widget title;
@@ -18,14 +18,10 @@ class CourseListItem extends StatelessWidget {
         ),
         child: Row(
           children: <Widget>[
-            SizedBox(
+            Container(
+              color: SECONDARY_COLOR,
               width: 8.0,
               height: 64.0,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: GenChem.of(context).theme.secondaryColor,
-                ),
-              ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),

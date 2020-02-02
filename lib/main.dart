@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:gencheminkaist/constants/color.dart';
 import 'package:gencheminkaist/home.dart';
 import 'package:gencheminkaist/models/course.dart';
-import 'package:gencheminkaist/models/genchem_theme.dart';
 import 'package:gencheminkaist/pages/loading_page.dart';
 import 'package:gencheminkaist/widgets/genchem.dart';
 
@@ -43,10 +42,6 @@ class GenChemApp extends StatelessWidget {
           .toList(),
       genchemUrl: remoteConfig.getString("genchem_url"),
       noticeUrl: remoteConfig.getString("notice_url"),
-      theme: GenChemTheme(
-        primaryColor: PRIMARY_COLOR,
-        secondaryColor: SECONDARY_COLOR,
-      ),
       home: GenChemHome(),
     );
   }

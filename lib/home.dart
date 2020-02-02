@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gencheminkaist/constants/color.dart';
 import 'package:gencheminkaist/pages/course_list_page.dart';
 import 'package:gencheminkaist/pages/more_page.dart';
 import 'package:gencheminkaist/pages/notice_page.dart';
@@ -30,14 +31,11 @@ class _GenChemHomeState extends State<GenChemHome> {
 
   @override
   Widget build(BuildContext context) {
-    final genchem = GenChem.of(context);
-    final primaryColor = genchem.theme.primaryColor;
-
-    if (_genchemUrl == null) _genchemUrl = genchem.genchemUrl;
+    if (_genchemUrl == null) _genchemUrl = GenChem.of(context).genchemUrl;
 
     return Scaffold(
       appBar: _buildAppBar(),
-      bottomNavigationBar: _buildBottomNavigationBar(primaryColor),
+      bottomNavigationBar: _buildBottomNavigationBar(),
       body: IndexedStack(
         index: _currentIndex,
         children: _pages,
@@ -57,10 +55,10 @@ class _GenChemHomeState extends State<GenChemHome> {
     );
   }
 
-  BottomNavigationBar _buildBottomNavigationBar(Color selectedColor) {
+  BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
-      fixedColor: selectedColor,
+      fixedColor: PRIMARY_COLOR,
       onTap: (index) {
         setState(() {
           _currentIndex = index;

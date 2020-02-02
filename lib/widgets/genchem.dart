@@ -1,17 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gencheminkaist/models/course.dart';
-import 'package:gencheminkaist/models/genchem_theme.dart';
 
 class GenChem extends InheritedWidget {
   final String genchemUrl;
   final String noticeUrl;
-  final GenChemTheme theme;
   final List<Course> courses;
 
   GenChem({
     Key key,
-    @required this.theme,
     @required this.genchemUrl,
     @required this.noticeUrl,
     @required this.courses,
@@ -24,8 +21,8 @@ class GenChem extends InheritedWidget {
 
   @override
   bool updateShouldNotify(GenChem oldWidget) {
-    return theme.primaryColor != oldWidget.theme.primaryColor ||
-        theme.secondaryColor != oldWidget.theme.secondaryColor ||
+    return genchemUrl != oldWidget.genchemUrl ||
+        noticeUrl != oldWidget.noticeUrl ||
         !listEquals(courses, oldWidget.courses);
   }
 }
