@@ -103,6 +103,8 @@ class _NoticePageState extends State<NoticePage> {
 
         while (title.contains("  ")) title = title.replaceAll("  ", " ");
 
+        title = title.substring(title.indexOf("]") + 1).trimLeft();
+
         if (title.isEmpty) {
           if (result.containsKey(GENCHEM)) {
             if (result[GENCHEM].length > 0) result[GENCHEMLAB] = [];
