@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loading/indicator/ball_pulse_indicator.dart';
-import 'package:loading/loading.dart';
 
 class LoadingPage extends StatelessWidget {
   final Color backgroundColor;
@@ -18,8 +16,8 @@ class LoadingPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Image.asset("assets/icons/ic_launcher_foreground.png"),
-            Loading(
-              indicator: BallPulseIndicator(),
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
             ),
           ],
         ),
