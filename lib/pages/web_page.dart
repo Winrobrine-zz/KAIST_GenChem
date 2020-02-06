@@ -27,7 +27,14 @@ class WebPage extends StatelessWidget {
           crossPlatform: InAppWebViewOptions(
             cacheEnabled: false,
             clearCache: true,
+            preferredContentMode: InAppWebViewUserPreferredContentMode.DESKTOP,
             useOnDownloadStart: true,
+          ),
+          android: AndroidInAppWebViewOptions(
+            builtInZoomControls: true,
+            displayZoomControls: true,
+            loadWithOverviewMode: true,
+            useWideViewPort: true,
           ),
         ),
         onDownloadStart: (controller, url) {
