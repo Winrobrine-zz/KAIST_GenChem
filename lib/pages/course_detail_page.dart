@@ -83,6 +83,23 @@ class CourseDetailPage extends StatelessWidget {
             ),
           ],
         ),
+        GroupBox(
+          title: const Text("Exam Info"),
+          children: [
+            GenChemTile.toWebView(
+              context: context,
+              leading: const Icon(Icons.notifications),
+              title: const Text("Notice"),
+              url: course.examInfo,
+            ),
+            GenChemTile.toWebView(
+              context: context,
+              leading: const Icon(Icons.insert_drive_file),
+              title: const Text("Past Papers"),
+              url: course.pastPapers,
+            ),
+          ],
+        ),
       ],
     );
   }

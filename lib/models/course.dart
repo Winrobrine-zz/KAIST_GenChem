@@ -9,6 +9,7 @@ class Course {
   String practiceSchedule;
   String examInfo;
   String notice;
+  String pastPapers;
 
   Course.fromMap(Map<String, dynamic> map) {
     courseTitle = map["courseTitle"];
@@ -21,6 +22,7 @@ class Course {
     practiceSchedule = map["practiceSchedule"];
     examInfo = map["examInfo"];
     notice = map["notice"];
+    pastPapers = map["pastPapers"];
   }
 
   Map<String, dynamic> toMap() => {
@@ -34,5 +36,6 @@ class Course {
         "practiceSchedule": practiceSchedule,
         "examInfo": examInfo,
         "notice": notice,
+        "pastPapers": pastPapers,
       };
 }
