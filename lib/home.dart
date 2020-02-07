@@ -3,8 +3,8 @@ import 'package:gencheminkaist/constants/color.dart';
 import 'package:gencheminkaist/pages/course_list_page.dart';
 import 'package:gencheminkaist/pages/more_page.dart';
 import 'package:gencheminkaist/pages/notice_page.dart';
+import 'package:gencheminkaist/providers/genchem_model.dart';
 import 'package:gencheminkaist/providers/notice_model.dart';
-import 'package:gencheminkaist/widgets/genchem.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,9 +17,8 @@ class GenChemHome extends StatefulWidget {
 
 class _GenChemHomeState extends State<GenChemHome> {
   int _currentIndex = 0;
-  String _genchemUrl;
 
-  final _pageTitles = const <Text>[
+  final _titles = const <Text>[
     Text("Course List"),
     Text("Notice"),
     Text("More"),
@@ -27,36 +26,30 @@ class _GenChemHomeState extends State<GenChemHome> {
 
   @override
   Widget build(BuildContext context) {
-    final genchem = GenChem.of(context);
-
-    if (_genchemUrl == null) _genchemUrl = genchem.genchemUrl;
+    final genchemModel = Provider.of<GenChemModel>(context);
 
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: AppBar(
+        title: _titles[_currentIndex],
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.open_in_browser),
+            onPressed: () => launch(genchemModel.genchemUrl),
+          ),
+        ],
+      ),
       bottomNavigationBar: _buildBottomNavigationBar(),
       body: IndexedStack(
         index: _currentIndex,
         children: <Widget>[
           CourseListPage(),
           ChangeNotifierProvider(
-            create: (context) => NoticeModel(genchem.noticeUrl),
+            create: (context) => NoticeModel(genchemModel.noticeUrl),
             child: NoticePage(),
           ),
           MorePage(),
         ],
       ),
-    );
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      title: _pageTitles[_currentIndex],
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.open_in_browser),
-          onPressed: () => launch(_genchemUrl),
-        ),
-      ],
     );
   }
 
@@ -72,15 +65,15 @@ class _GenChemHomeState extends State<GenChemHome> {
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: const Icon(Icons.assignment),
-          title: _pageTitles[0],
+          title: _titles[0],
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.notifications),
-          title: _pageTitles[1],
+          title: _titles[1],
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.more),
-          title: _pageTitles[2],
+          title: _titles[2],
         ),
       ],
     );

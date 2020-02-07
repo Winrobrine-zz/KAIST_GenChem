@@ -1,15 +1,14 @@
-import 'dart:convert';
-
-import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gencheminkaist/constants/color.dart';
 import 'package:gencheminkaist/home.dart';
-import 'package:gencheminkaist/models/course.dart';
 import 'package:gencheminkaist/pages/loading_page.dart';
-import 'package:gencheminkaist/widgets/genchem.dart';
+import 'package:gencheminkaist/providers/genchem_model.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(GenChemApp());
+void main() => runApp(ChangeNotifierProvider(
+      create: (context) => GenChemModel(),
+      child: GenChemApp(),
+    ));
 
 class GenChemApp extends StatelessWidget {
   @override
@@ -17,32 +16,12 @@ class GenChemApp extends StatelessWidget {
     return MaterialApp(
       title: "KAIST GenChem",
       theme: _buildTheme(),
-      home: FutureBuilder<RemoteConfig>(
-        future: _setupRemoteConfig(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Scaffold(
-              body: Center(
-                child: Text("Error: ${snapshot.error}"),
-              ),
-            );
-          }
-          if (snapshot.connectionState == ConnectionState.done)
-            return _buildGenChem(snapshot.data);
+      home: Consumer<GenChemModel>(
+        builder: (context, genchemModel, _) {
+          if (genchemModel.state == GenChemState.done) return GenChemHome();
           return LoadingPage(backgroundColor: PRIMARY_COLOR);
         },
       ),
-    );
-  }
-
-  GenChem _buildGenChem(RemoteConfig remoteConfig) {
-    return GenChem(
-      courses: (jsonDecode(remoteConfig.getString("courses")) as List)
-          .map((e) => Course.fromMap(e))
-          .toList(),
-      genchemUrl: remoteConfig.getString("genchem_url"),
-      noticeUrl: remoteConfig.getString("notice_url"),
-      home: GenChemHome(),
     );
   }
 
@@ -59,25 +38,4 @@ class GenChemApp extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<RemoteConfig> _setupRemoteConfig() async {
-  final remoteConfig = await RemoteConfig.instance;
-
-  try {
-    if (kDebugMode)
-      remoteConfig.setConfigSettings(RemoteConfigSettings(debugMode: true));
-
-    remoteConfig.setDefaults(<String, dynamic>{
-      "genchem_url": "http://gencheminkaist.pe.kr/",
-      "notice_url": "http://gencheminkaist.pe.kr/down.htm",
-      "courses": "[]"
-    });
-    await remoteConfig.fetch(expiration: const Duration(minutes: 15));
-    await remoteConfig.activateFetched();
-  } catch (exception) {
-    print(exception);
-  }
-
-  return remoteConfig;
 }

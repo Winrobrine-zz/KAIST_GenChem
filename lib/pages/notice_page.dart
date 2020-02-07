@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gencheminkaist/providers/genchem_model.dart';
 import 'package:gencheminkaist/providers/notice_model.dart';
-import 'package:gencheminkaist/widgets/genchem.dart';
 import 'package:gencheminkaist/widgets/genchem_tile.dart';
 import 'package:gencheminkaist/widgets/group_box.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,7 @@ class NoticePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final courses = GenChem.of(context).courses;
+    final courses = Provider.of<GenChemModel>(context, listen: false).courses;
     final noticeModel = Provider.of<NoticeModel>(context, listen: false);
 
     return RefreshIndicator(
