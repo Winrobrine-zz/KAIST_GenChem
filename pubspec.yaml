@@ -28,6 +28,7 @@ dependencies:
       url: git://github.com/pichillilorenzo/flutter_inappwebview.git
   html: ^0.14.0+3
   dio: ^3.0.8
+  provider: ^4.0.3
 
 dev_dependencies:
   flutter_test:

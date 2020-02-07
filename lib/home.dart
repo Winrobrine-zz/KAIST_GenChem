@@ -3,7 +3,9 @@ import 'package:gencheminkaist/constants/color.dart';
 import 'package:gencheminkaist/pages/course_list_page.dart';
 import 'package:gencheminkaist/pages/more_page.dart';
 import 'package:gencheminkaist/pages/notice_page.dart';
+import 'package:gencheminkaist/providers/notice_model.dart';
 import 'package:gencheminkaist/widgets/genchem.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class GenChemHome extends StatefulWidget {
@@ -17,12 +19,6 @@ class _GenChemHomeState extends State<GenChemHome> {
   int _currentIndex = 0;
   String _genchemUrl;
 
-  final _pages = <Widget>[
-    CourseListPage(),
-    NoticePage(),
-    MorePage(),
-  ];
-
   final _pageTitles = const <Text>[
     Text("Course List"),
     Text("Notice"),
@@ -31,14 +27,23 @@ class _GenChemHomeState extends State<GenChemHome> {
 
   @override
   Widget build(BuildContext context) {
-    if (_genchemUrl == null) _genchemUrl = GenChem.of(context).genchemUrl;
+    final genchem = GenChem.of(context);
+
+    if (_genchemUrl == null) _genchemUrl = genchem.genchemUrl;
 
     return Scaffold(
       appBar: _buildAppBar(),
       bottomNavigationBar: _buildBottomNavigationBar(),
       body: IndexedStack(
         index: _currentIndex,
-        children: _pages,
+        children: <Widget>[
+          CourseListPage(),
+          ChangeNotifierProvider(
+            create: (context) => NoticeModel(genchem.noticeUrl),
+            child: NoticePage(),
+          ),
+          MorePage(),
+        ],
       ),
     );
   }
