@@ -1,21 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:gencheminkaist/models/notice_list.dart';
 import 'package:html/parser.dart';
 import 'package:html/dom.dart' as dom;
-
-const String GENCHEM = "General Chemistry";
-const String GENCHEMLAB = "General Chemistry Laboratory";
 
 class NoticeModel extends ChangeNotifier {
   String _noticeUrl;
 
-  Map<String, List<String>> _notices;
-  Map<String, List<String>> get notices =>
-      _notices ??
-      {
-        GENCHEM: [],
-        GENCHEMLAB: [],
-      };
+  NoticeList _notices;
+  NoticeList get notices => _notices ?? NoticeList.empty();
 
   NoticeModel(String noticeUrl) : _noticeUrl = noticeUrl {
     updateNotices();
@@ -25,7 +18,7 @@ class NoticeModel extends ChangeNotifier {
     try {
       final response = await Dio().get(_noticeUrl);
       final document = parse(response.data);
-      final result = Map<String, List<String>>();
+      final result = NoticeList();
 
       document.querySelectorAll("tr").forEach((e) {
         String title = e
@@ -49,16 +42,17 @@ class NoticeModel extends ChangeNotifier {
         title = title.substring(title.indexOf("]") + 1).trimLeft();
 
         if (title.isEmpty) {
-          if (result.containsKey(GENCHEM)) {
-            if (result[GENCHEM].length > 0) result[GENCHEMLAB] = [];
+          if (result.genchem != null) {
+            if (result.genchem.length > 0) result.genchemLab = [];
           } else {
-            result[GENCHEM] = [];
+            result.genchem = [];
           }
         } else if (title != "•") {
-          if (result.containsKey(GENCHEMLAB))
-            result[GENCHEMLAB].add(title.replaceAll("•", "").trimLeft());
-          else
-            result[GENCHEM].add(title.replaceAll("•", "").trimLeft());
+          if (result.genchemLab != null) {
+            result.genchemLab.add(title.replaceAll("•", "").trimLeft());
+          } else {
+            result.genchem.add(title.replaceAll("•", "").trimLeft());
+          }
         }
       });
 

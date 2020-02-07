@@ -20,8 +20,8 @@ class NoticePage extends StatelessWidget {
           return ListView(
             children: <Widget>[
               GroupBox(
-                title: const Text(GENCHEM),
-                children: noticeModel.notices[GENCHEM]
+                title: const Text("General Chemistry"),
+                children: noticeModel.notices.genchem
                     .map((title) => GenChemTile.toWebView(
                           context: context,
                           title: Text(title),
@@ -34,8 +34,8 @@ class NoticePage extends StatelessWidget {
                     .toList(),
               ),
               GroupBox(
-                title: const Text(GENCHEMLAB),
-                children: noticeModel.notices[GENCHEMLAB]
+                title: const Text("General Chemistry Laboratory"),
+                children: noticeModel.notices.genchemLab
                     .map((title) => GenChemTile.toWebView(
                         context: context,
                         title: Text(title),
