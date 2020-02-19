@@ -26,7 +26,7 @@ class _GenChemHomeState extends State<GenChemHome> {
 
   @override
   Widget build(BuildContext context) {
-    final genchemModel = Provider.of<GenChemModel>(context);
+    final genchemModel = Provider.of<GenChemModel>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(

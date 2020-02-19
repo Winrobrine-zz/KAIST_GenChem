@@ -93,6 +93,12 @@ class CourseDetailPage extends StatelessWidget {
               title: const Text("TA Contact"),
               url: course.taContact,
             ),
+            GenChemTile.toWebView(
+              context: context,
+              leading: const Icon(Icons.info),
+              title: const Text("Lab Safety"),
+              url: course.labSafety,
+            ),
           ],
         ),
       ],
