@@ -39,8 +39,6 @@ class NoticeModel extends ChangeNotifier {
 
         while (title.contains("  ")) title = title.replaceAll("  ", " ");
 
-        title = title.substring(title.indexOf("]") + 1).trimLeft();
-
         if (title.isEmpty) {
           if (result.genchem != null) {
             if (result.genchem.length > 0) result.genchemLab = [];
@@ -48,6 +46,8 @@ class NoticeModel extends ChangeNotifier {
             result.genchem = [];
           }
         } else if (title != "•") {
+          title = title.substring(title.indexOf("[CH"), title.length - 1);
+
           if (result.genchemLab != null) {
             result.genchemLab.add(title.replaceAll("•", "").trimLeft());
           } else {

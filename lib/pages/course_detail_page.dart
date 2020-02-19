@@ -30,6 +30,12 @@ class CourseDetailPage extends StatelessWidget {
               title: const Text("Notice"),
               url: course.notice,
             ),
+            GenChemTile.toWebView(
+              context: context,
+              leading: const Icon(Icons.notifications),
+              title: const Text("Exam Notice"),
+              url: course.examInfo,
+            ),
           ],
         ),
         GroupBox(
@@ -52,6 +58,12 @@ class CourseDetailPage extends StatelessWidget {
               leading: const Icon(Icons.insert_drive_file),
               title: const Text("Exp. Procedure"),
               url: course.expProcedure,
+            ),
+            GenChemTile.toWebView(
+              context: context,
+              leading: const Icon(Icons.insert_drive_file),
+              title: const Text("Past Papers"),
+              url: course.pastPapers,
             ),
           ],
         ),
@@ -80,23 +92,6 @@ class CourseDetailPage extends StatelessWidget {
               leading: const Icon(Icons.info),
               title: const Text("TA Contact"),
               url: course.taContact,
-            ),
-          ],
-        ),
-        GroupBox(
-          title: const Text("Exam Info"),
-          children: [
-            GenChemTile.toWebView(
-              context: context,
-              leading: const Icon(Icons.notifications),
-              title: const Text("Notice"),
-              url: course.examInfo,
-            ),
-            GenChemTile.toWebView(
-              context: context,
-              leading: const Icon(Icons.insert_drive_file),
-              title: const Text("Past Papers"),
-              url: course.pastPapers,
             ),
           ],
         ),
