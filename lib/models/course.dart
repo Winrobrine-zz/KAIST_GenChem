@@ -1,4 +1,5 @@
 class Course {
+  bool isEnabled;
   String courseTitle;
   String courseNo;
   String syllabus;
@@ -12,6 +13,7 @@ class Course {
   String pastPapers;
 
   Course.fromMap(Map<String, dynamic> map) {
+    isEnabled = map["isEnabled"];
     courseTitle = map["courseTitle"];
     courseNo = map["courseNo"];
     syllabus = map["syllabus"];
@@ -26,6 +28,7 @@ class Course {
   }
 
   Map<String, dynamic> toMap() => {
+        "isEnabled": isEnabled,
         "courseTitle": courseTitle,
         "courseNo": courseNo,
         "syllabus": syllabus,

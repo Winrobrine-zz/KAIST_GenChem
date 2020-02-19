@@ -13,6 +13,7 @@ class CourseListPage extends StatelessWidget {
 
     return ListView(
       children: genchemModel.courses
+          .where((course) => course.isEnabled)
           .map((course) => CourseListItem(
                 title: Text("${course.courseTitle} (${course.courseNo})"),
                 onTap: () {
