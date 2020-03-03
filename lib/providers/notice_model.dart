@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gencheminkaist/dio_provider.dart';
+import 'package:gencheminkaist/models/notice.dart';
 import 'package:gencheminkaist/models/notice_list.dart';
 import 'package:html/parser.dart';
 import 'package:html/dom.dart' as dom;
@@ -46,12 +47,19 @@ class NoticeModel extends ChangeNotifier {
             result.genchem = [];
           }
         } else if (title != "•") {
-          title = title.substring(title.indexOf("[CH"), title.length - 1);
+          title = title.replaceAll("•", "").trimLeft();
+
+          final titleIndex = title.indexOf("[CH");
+          final date = title.substring(0, titleIndex).trimRight();
+          final notice = Notice(
+            title: title.substring(titleIndex),
+            date: date.substring(1, date.length - 1),
+          );
 
           if (result.genchemLab != null) {
-            result.genchemLab.add(title.replaceAll("•", "").trimLeft());
+            result.genchemLab.add(notice);
           } else {
-            result.genchem.add(title.replaceAll("•", "").trimLeft());
+            result.genchem.add(notice);
           }
         }
       });

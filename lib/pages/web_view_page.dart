@@ -8,11 +8,11 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class WebPage extends StatelessWidget {
+class WebViewPage extends StatelessWidget {
   final String title;
   final String url;
 
-  WebPage({Key key, @required this.title, @required this.url})
+  WebViewPage({Key key, @required this.title, @required this.url})
       : super(key: key);
 
   Future<void> _openAsPdf() async {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gencheminkaist/pages/web_page.dart';
+import 'package:gencheminkaist/pages/web_view_page.dart';
 
 class GenChemTile extends StatelessWidget {
   final Widget leading;
   final Widget title;
+  final Widget bottom;
   final VoidCallback onTap;
   final bool isVisible;
 
@@ -11,6 +12,7 @@ class GenChemTile extends StatelessWidget {
       {Key key,
       this.leading,
       @required this.title,
+      this.bottom,
       this.onTap,
       this.isVisible = true})
       : super(key: key);
@@ -18,6 +20,7 @@ class GenChemTile extends StatelessWidget {
   GenChemTile.toWebView(
       {Key key,
       Widget leading,
+      Widget bottom,
       @required String title,
       @required String url,
       @required BuildContext context,
@@ -26,11 +29,12 @@ class GenChemTile extends StatelessWidget {
             key: key,
             leading: leading,
             title: Text(title),
+            bottom: bottom,
             isVisible: url != null && url.isNotEmpty,
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => WebPage(
+                  builder: (context) => WebViewPage(
                     title: webTitle ?? title,
                     url: url,
                   ),
@@ -51,7 +55,7 @@ class GenChemTile extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey[400]),
           ),
-          height: 64.0,
+          height: bottom == null ? 64.0 : 70.0,
           padding: const EdgeInsets.all(16.0),
           child: Row(
             children: <Widget>[
@@ -62,12 +66,35 @@ class GenChemTile extends StatelessWidget {
                 child: leading,
               ),
               Expanded(
-                child: DefaultTextStyle(
-                  style: Theme.of(context).textTheme.subhead,
-                  softWrap: false,
-                  overflow: TextOverflow.fade,
-                  maxLines: 1,
-                  child: title,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    DefaultTextStyle(
+                      style: bottom == null
+                          ? Theme.of(context).textTheme.subhead
+                          : Theme.of(context).textTheme.body1,
+                      softWrap: false,
+                      overflow: TextOverflow.fade,
+                      maxLines: 1,
+                      child: title,
+                    ),
+                    bottom == null
+                        ? const SizedBox.shrink()
+                        : Padding(
+                            padding: const EdgeInsets.only(top: 4.0),
+                            child: DefaultTextStyle(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .overline
+                                  .copyWith(color: Colors.black54),
+                              softWrap: false,
+                              overflow: TextOverflow.fade,
+                              maxLines: 1,
+                              child: bottom,
+                            ),
+                          ),
+                  ],
                 ),
               ),
             ],

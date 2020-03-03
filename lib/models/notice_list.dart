@@ -1,6 +1,8 @@
+import 'package:gencheminkaist/models/notice.dart';
+
 class NoticeList {
-  List<String> genchem;
-  List<String> genchemLab;
+  List<Notice> genchem;
+  List<Notice> genchemLab;
 
   NoticeList({this.genchem, this.genchemLab});
 
