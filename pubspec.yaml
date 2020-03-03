@@ -29,6 +29,7 @@ dependencies:
   html: ^0.14.0+3
   dio: ^3.0.8
   provider: ^4.0.3
+  charset_converter: ^1.0.2
 
 dev_dependencies:
   flutter_test:

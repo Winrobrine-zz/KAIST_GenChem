@@ -1,3 +1,6 @@
+import 'dart:typed_data';
+
+import 'package:charset_converter/charset_converter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gencheminkaist/models/notice_list.dart';
@@ -5,19 +8,23 @@ import 'package:html/parser.dart';
 import 'package:html/dom.dart' as dom;
 
 class NoticeModel extends ChangeNotifier {
-  String _noticeUrl;
-
   NoticeList _notices;
   NoticeList get notices => _notices ?? NoticeList.empty();
 
+  final _noticeUrl;
+  final _dio = Dio();
+
   NoticeModel(String noticeUrl) : _noticeUrl = noticeUrl {
+    _dio.options.responseType = ResponseType.bytes;
     updateNotices();
   }
 
   Future<void> updateNotices() async {
     try {
-      final response = await Dio().get(_noticeUrl);
-      final document = parse(response.data);
+      final response = await _dio.get(_noticeUrl);
+      final data = await CharsetConverter.decode(
+          "EUC-KR", Uint8List.fromList(response.data));
+      final document = parse(data);
       final result = NoticeList();
 
       document.querySelectorAll("tr").forEach((e) {
