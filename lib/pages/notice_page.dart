@@ -21,30 +21,28 @@ class NoticePage extends StatelessWidget {
             children: <Widget>[
               GroupBox(
                 title: const Text("General Chemistry"),
-                children: noticeModel.notices.genchem
-                    .map((title) => GenChemTile.toWebView(
-                          context: context,
-                          title: Text(title),
-                          webTitle: const Text("Notice"),
-                          url: courses
-                              .firstWhere(
-                                  (course) => title.contains(course.courseNo))
-                              .notice,
-                        ))
-                    .toList(),
+                children: noticeModel.notices.genchem.map((title) {
+                  final course = courses
+                      .firstWhere((course) => title.contains(course.courseNo));
+                  return GenChemTile.toWebView(
+                    context: context,
+                    title: title,
+                    webTitle: "[${course.courseNo}] Notice",
+                    url: course.notice,
+                  );
+                }).toList(),
               ),
               GroupBox(
                 title: const Text("General Chemistry Laboratory"),
-                children: noticeModel.notices.genchemLab
-                    .map((title) => GenChemTile.toWebView(
-                        context: context,
-                        title: Text(title),
-                        webTitle: const Text("Notice"),
-                        url: courses
-                            .firstWhere(
-                                (course) => title.contains(course.courseNo))
-                            .notice))
-                    .toList(),
+                children: noticeModel.notices.genchemLab.map((title) {
+                  final course = courses
+                      .firstWhere((course) => title.contains(course.courseNo));
+                  return GenChemTile.toWebView(
+                      context: context,
+                      title: title,
+                      webTitle: "[${course.courseNo}] Notice",
+                      url: course.notice);
+                }).toList(),
               ),
             ],
           );

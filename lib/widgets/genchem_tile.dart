@@ -18,14 +18,14 @@ class GenChemTile extends StatelessWidget {
   GenChemTile.toWebView(
       {Key key,
       Widget leading,
-      @required Widget title,
+      @required String title,
       @required String url,
       @required BuildContext context,
-      Widget webTitle})
+      String webTitle})
       : this(
             key: key,
             leading: leading,
-            title: title,
+            title: Text(title),
             isVisible: url != null && url.isNotEmpty,
             onTap: () {
               Navigator.of(context).push(

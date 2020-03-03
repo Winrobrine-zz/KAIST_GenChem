@@ -30,6 +30,9 @@ dependencies:
   dio: ^3.0.8
   provider: ^4.0.3
   charset_converter: ^1.0.2
+  flutter_html_to_pdf: ^0.5.2
+  path_provider: ^1.6.4
+  open_file: ^3.0.1
 
 dev_dependencies:
   flutter_test:
