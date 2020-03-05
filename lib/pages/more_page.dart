@@ -14,10 +14,10 @@ class MorePage extends StatelessWidget {
           leading: const Icon(Icons.mail),
           title: const Text("Contact"),
           onTap: () => launch(
-              "mailto:ghwhsbsb@kaist.ac.kr?subject=[KAIST GenChem Contact] "),
+              "mailto:ghwhsbsb@kaist.ac.kr?subject=[KAIST%20GenChem%20Contact]%20"),
         ),
         GenChemTile(
-          leading: const Icon(Icons.perm_device_information),
+          leading: const Icon(Icons.info),
           title: const Text("APP Info"),
           onTap: () => Navigator.push(
               context, MaterialPageRoute(builder: (context) => AppPage())),

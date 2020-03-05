@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gencheminkaist/dio_provider.dart';
+import 'package:gencheminkaist/dio.dart';
 import 'package:gencheminkaist/models/notice.dart';
 import 'package:gencheminkaist/models/notice_list.dart';
 import 'package:html/parser.dart';
@@ -17,8 +17,8 @@ class NoticeModel extends ChangeNotifier {
 
   Future<void> updateNotices() async {
     try {
-      final data = await DioProvider().get(_noticeUrl);
-      final document = parse(data);
+      final response = await dio.get(_noticeUrl);
+      final document = parse(response.data);
       final result = NoticeList();
 
       document.querySelectorAll("tr").forEach((e) {

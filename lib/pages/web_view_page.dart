@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_html_to_pdf/flutter_html_to_pdf.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:gencheminkaist/dio_provider.dart';
+import 'package:gencheminkaist/dio.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,8 +19,9 @@ class WebViewPage extends StatelessWidget {
     final directory = Platform.isIOS
         ? await getApplicationDocumentsDirectory()
         : await getExternalStorageDirectory();
+    final response = await dio.get(url);
     final file = await FlutterHtmlToPdf.convertFromHtmlContent(
-        await DioProvider().get(url), directory.path, title);
+        response.data, directory.path, title);
     OpenFile.open(file.path);
   }
 
@@ -61,6 +62,8 @@ class WebViewPage extends StatelessWidget {
           useWideViewPort: true,
         ),
       ),
+      onCreateWindow: (controller, request) =>
+          controller.loadUrl(url: request.url),
       onDownloadStart: (controller, url) => launch(url),
     );
   }
