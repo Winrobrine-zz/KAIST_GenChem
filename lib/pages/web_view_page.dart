@@ -48,11 +48,11 @@ class WebViewPage extends StatelessWidget {
   Widget _buildBody() {
     return InAppWebView(
       initialUrl: url,
-      initialOptions: InAppWebViewWidgetOptions(
+      initialOptions: InAppWebViewGroupOptions(
         crossPlatform: InAppWebViewOptions(
           cacheEnabled: false,
           clearCache: true,
-          preferredContentMode: InAppWebViewUserPreferredContentMode.DESKTOP,
+          preferredContentMode: UserPreferredContentMode.DESKTOP,
           useOnDownloadStart: true,
         ),
         android: AndroidInAppWebViewOptions(

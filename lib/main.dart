@@ -5,10 +5,14 @@ import 'package:gencheminkaist/pages/loading_page.dart';
 import 'package:gencheminkaist/providers/genchem_model.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(ChangeNotifierProvider(
-      create: (context) => GenChemModel(),
-      child: GenChemApp(),
-    ));
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(ChangeNotifierProvider(
+    create: (context) => GenChemModel(),
+    child: GenChemApp(),
+  ));
+}
 
 class GenChemApp extends StatelessWidget {
   @override
@@ -31,7 +35,7 @@ class GenChemApp extends StatelessWidget {
       appBarTheme: base.appBarTheme.copyWith(color: PRIMARY_COLOR),
       iconTheme: base.iconTheme.copyWith(color: Colors.grey),
       primaryTextTheme: base.primaryTextTheme.copyWith(
-        title: base.primaryTextTheme.title.copyWith(
+        headline6: base.primaryTextTheme.headline6.copyWith(
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),

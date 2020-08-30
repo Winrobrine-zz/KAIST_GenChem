@@ -39,7 +39,7 @@ class GroupBox extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: DefaultTextStyle(
-          style: theme.textTheme.subhead.copyWith(color: Colors.grey[600]),
+          style: theme.textTheme.subtitle1.copyWith(color: Colors.grey[600]),
           child: title,
         ),
       ),

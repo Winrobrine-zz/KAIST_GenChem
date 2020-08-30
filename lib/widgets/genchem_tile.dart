@@ -72,8 +72,8 @@ class GenChemTile extends StatelessWidget {
                   children: <Widget>[
                     DefaultTextStyle(
                       style: bottom == null
-                          ? Theme.of(context).textTheme.subhead
-                          : Theme.of(context).textTheme.body1,
+                          ? Theme.of(context).textTheme.subtitle1
+                          : Theme.of(context).textTheme.bodyText2,
                       softWrap: false,
                       overflow: TextOverflow.fade,
                       maxLines: 1,

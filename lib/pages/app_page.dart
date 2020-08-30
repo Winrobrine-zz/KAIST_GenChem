@@ -23,13 +23,13 @@ class AppPage extends StatelessWidget {
         Image.asset("assets/icons/ic_launcher.png"),
         Text(
           packageInfo.appName,
-          style: textTheme.title.copyWith(color: Colors.black),
+          style: textTheme.headline6.copyWith(color: Colors.black),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             packageInfo.version,
-            style: textTheme.subtitle.copyWith(color: Colors.black),
+            style: textTheme.subtitle2.copyWith(color: Colors.black),
           ),
         ),
       ],
